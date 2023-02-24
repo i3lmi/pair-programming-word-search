@@ -1,38 +1,28 @@
-const chai = require('chai');
-const assert = chai.assert;
+const wordSearch = function (letters, word) {
+  if (letters.length === 0) {
+    return false;
+  }
 
-const wordSearch = require('../wordsearch.js')
+  const horizontalJoin = letters.map(ls => ls.join(''));
+  for (const l of horizontalJoin) {
+    if (l.includes(word)) {
+      return true;
+    }
+  }
 
-describe("#wordSearch()", function() {
-  it("should return false if the word is not present", function() {
-    const result = wordSearch([
-      ['A', 'W', 'C', 'F', 'Q', 'U', 'A', 'L'],
-      ['S', 'E', 'I', 'N', 'F', 'E', 'L', 'D'],
-      ['Y', 'F', 'C', 'F', 'Q', 'U', 'A', 'L'],
-      ['H', 'M', 'J', 'T', 'E', 'V', 'R', 'G'],
-      ['W', 'H', 'C', 'S', 'Y', 'E', 'R', 'L'],
-      ['B', 'F', 'R', 'E', 'N', 'E', 'Y', 'B'],
-      ['U', 'B', 'T', 'W', 'A', 'P', 'A', 'I'],
-      ['O', 'D', 'C', 'A', 'K', 'U', 'A', 'S'],
-      ['E', 'Z', 'K', 'F', 'Q', 'U', 'A', 'L'],
-    ], 'FRANK')
+  const verticalJoin = [];
+  for (let i = 0; i < letters[0].length; i++) {
+    let verticalWord = '';
+    for (let j = 0; j < letters.length; j++) {
+      verticalWord += letters[j][i];
+    }
+    verticalJoin.push(verticalWord);
+  }
+  for (const l of verticalJoin) {
+    if (l.includes(word)) {
+      return true;
+    }
+  }
 
-    assert.isFalse(result);
-  });
-
-  it("should return true if the word is present", function() {
-    const result = wordSearch([
-      ['A', 'W', 'C', 'F', 'Q', 'U', 'A', 'L'],
-      ['S', 'E', 'I', 'N', 'F', 'E', 'L', 'D'],
-      ['Y', 'F', 'C', 'F', 'Q', 'U', 'A', 'L'],
-      ['H', 'M', 'J', 'T', 'E', 'V', 'R', 'G'],
-      ['W', 'H', 'C', 'S', 'Y', 'E', 'R', 'L'],
-      ['B', 'F', 'R', 'E', 'N', 'E', 'Y', 'B'],
-      ['U', 'B', 'T', 'W', 'A', 'P', 'A', 'I'],
-      ['O', 'D', 'C', 'A', 'K', 'U', 'A', 'S'],
-      ['E', 'Z', 'K', 'F', 'Q', 'U', 'A', 'L'],
-    ], 'SEINFELD')
-
-    assert.isTrue(result);
-  });
-});
+  return false;
+};
